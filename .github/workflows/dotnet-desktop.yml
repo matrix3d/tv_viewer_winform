@@ -84,7 +84,12 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - uses: actions/upload-artifact@v1
+    - name : print
+      run: |
+       dir
+       cd bin
+       dir
+    - uses: actions/upload-artifact@v3
       with:
           name: CCTV_Viewer_v${{ github.run_number }}
           path: ./bin/Release
