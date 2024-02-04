@@ -84,6 +84,11 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
+    - uses: actions/upload-artifact@v1
+      with:
+          name: CCTV_Viewer_v${{ github.run_number }}
+          path: ./bin/Release
+
     # Decode the base 64 encoded pfx and save the Signing_Certificate
     #- name: Decode the pfx
     #  run: |
