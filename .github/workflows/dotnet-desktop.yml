@@ -23,15 +23,6 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
 
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
-      run: |
-        msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-        msbuild $env:Solution_Name /p:Configuration=$env:Configuration
-      env:
-        Solution_Name: webviewtest.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-        Test_Project_Path: webviewtest.csproj                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
-        Configuration: Release
 
     - name: Create Release
       id: create_release
