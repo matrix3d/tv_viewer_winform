@@ -113,7 +113,9 @@ namespace webviewtest
                                          if(fullscreenBtn!=null){
                                             //alert(fullscreenBtn)
                                           fullscreenBtn.click();
-                                          document.querySelector('video').volume=1;
+var v=document.querySelector('video');
+                                         v.volume=1;
+v.requestFullscreen();
                                          // alert(window.location.href+window.chrome.webview.hostObjects.Android.reload);
 											window.chrome.webview.hostObjects.Android.reload(""Hello from WebView!"")
                                          }else{
