@@ -72,6 +72,7 @@ namespace webviewtest
 			"https://www.yangshipin.cn/?a=20#/tv/home?pid=600002493",
 			"https://www.yangshipin.cn/?a=21#/tv/home?pid=600002513",
 			"https://www.bilibili.com/video/BV1NP411u7br/?spm_id_from=333.999.0.0&vd_source=14579d0fcae623fe6f711a6a0345a160",
+			"https://www.gdtv.cn/tvChannelDetail/51",
 	};
 			webView21.Source = new Uri(liveUrls[6]);
 			for (var i=0;i< liveUrls.Length;i++)
@@ -109,14 +110,27 @@ namespace webviewtest
 				//webView21.CoreWebView2.ExecuteScriptAsync(" document.querySelector('video').play();document.querySelector('video').requestFullscreen();");
 				webView21.CoreWebView2.ExecuteScriptAsync(@"
 					function af(){ 
-                                         var fullscreenBtn = document.querySelector('#player_pagefullscreen_yes_player')||document.querySelector('.videoFull');
+                                         var fullscreenBtn = document.querySelector('#player_pagefullscreen_yes_player')||document.querySelector('.videoFull')||document.querySelector('.vjs-fullscreen-control');
                                          if(fullscreenBtn!=null){
                                             //alert(fullscreenBtn)
-                                          fullscreenBtn.click();
-var v=document.querySelector('video');
-                                         v.volume=1;
-v.requestFullscreen();
-                                         // alert(window.location.href+window.chrome.webview.hostObjects.Android.reload);
+											fullscreenBtn.click();
+											var v=document.querySelector('video');
+											v.volume=1;
+											v.requestFullscreen();
+											if(document.querySelector('.vjs-fullscreen-control')!=null){
+
+												v.style.position = 'fixed';
+												v.style.top = '0';
+												v.style.left = '0';
+												v.style.width = '50%';
+												v.style.height = '100%';
+												v.style.zIndex = '9999';
+												v.style.objectFit= 'contain'; /* 保持宽高比，视频铺满容器 */
+												const aspectRatio = v.videoWidth / v.videoHeight;
+												const screenRatio = window.innerWidth / window.innerHeight;
+												//alert(v.videoWidth +"",""+ v.videoHeight+window.innerWidth +"",""+ window.innerHeight);
+											}
+											// alert(window.location.href+window.chrome.webview.hostObjects.Android.reload);
 											window.chrome.webview.hostObjects.Android.reload(""Hello from WebView!"")
                                          }else{
                                              setTimeout(
