@@ -122,10 +122,11 @@ namespace webviewtest
 												v.style.position = 'fixed';
 												v.style.top = '0';
 												v.style.left = '0';
-												v.style.width = '50%';
+												v.style.width = '100%';
 												v.style.height = '100%';
 												v.style.zIndex = '9999';
 												v.style.objectFit= 'contain'; /* 保持宽高比，视频铺满容器 */
+												v.style.backgroundColor= 'black'; /* 背景颜色可以根据需要更改 */
 												const aspectRatio = v.videoWidth / v.videoHeight;
 												const screenRatio = window.innerWidth / window.innerHeight;
 												//alert(v.videoWidth +"",""+ v.videoHeight+window.innerWidth +"",""+ window.innerHeight);
