@@ -79,10 +79,10 @@ jobs:
     #  run: dotnet test
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
-    #- name: Restore the application
-    #  run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-    #  env:
-    #    Configuration: ${{ matrix.configuration }}
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
         
     # build
     - name: build
@@ -96,27 +96,27 @@ jobs:
        cd bin
        dir
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: tagv${{ github.run_number }}
-        release_name: Release${{ github.run_number }}
-        body: |
-            ${{ steps.Changelog.outputs.changelog }}
-        draft: false
-        prerelease: false
-    - name: upload release asset
-      id: upload-release-asset2
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./bin/Release
-        asset_name: CCTV_Viewer_v${{ github.run_number }}
+    #- name: Create Release
+    #  id: create_release
+    #  uses: actions/create-release@v1
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+    #  with:
+    #    tag_name: tagv${{ github.run_number }}
+    #    release_name: Release${{ github.run_number }}
+    #    body: |
+    #        ${{ steps.Changelog.outputs.changelog }}
+    #    draft: false
+    #    prerelease: false
+    #- name: upload release asset
+    #  id: upload-release-asset2
+    #  uses: actions/upload-release-asset@v1
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #  with:
+    #    upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+    #    asset_path: ./bin/Release
+    #    asset_name: CCTV_Viewer_v${{ github.run_number }}
         
     - uses: actions/upload-artifact@v3
       with:
